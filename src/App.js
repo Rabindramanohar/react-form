@@ -7,11 +7,11 @@ class ReactFormPrac extends Component {
       firstName: "",
       lastName: "",
       age: 0,
-      location: "India",
+      location: "",
       gender: "",
-      isVegetarian: true,
-      isKosher: false,
-      isLactoseFree: false,
+        isVegetarian: false,
+        isKosher: false,
+        isLactoseFree: false
     };
   }
 
@@ -40,7 +40,7 @@ There should also be a button at the end of the form to submit it. Upon pressing
 
   handleChange = (event) => {
     const {name, value, type, checked} = event.target;
-    type === 'checkbox' ? this.setState({ [name] : checked }) : this.setState({ [name] : value });
+    type === 'checkbox' ? this.setState(prevState => {return {...prevState.dietaryRestrictions, [name]: checked}}): this.setState({ [name] : value });
   };
 
   render() {
@@ -80,6 +80,7 @@ There should also be a button at the end of the form to submit it. Upon pressing
               type="radio"
               name="gender"
               value="male"
+              checked = {this.state.gender === "male"}
               onChange={this.handleChange}
             />{" "}
             Male
@@ -89,6 +90,7 @@ There should also be a button at the end of the form to submit it. Upon pressing
               placeholder="gender"
               name="gender"
               value="female"
+              checked = {this.state.gender === "female"}
               onChange={this.handleChange}
             />
             Female
@@ -96,6 +98,7 @@ There should also be a button at the end of the form to submit it. Upon pressing
           </label>
           <label>Location:</label>
           <select onChange={this.handleChange} name="location" value= {this.state.location}>
+            <option value="">---Select Location---</option>
             <option value="India">India</option>
             <option value="Australia">Australia</option>
             <option value="Brazil">Brazil</option>
@@ -104,24 +107,29 @@ There should also be a button at the end of the form to submit it. Upon pressing
           </select>
           <br />
           <label>Dietary restrictions: </label>
-          <input
-            type="checkbox"
-            name="isVegetarian"
+          <input 
+            type = "checkbox"
+            name = "isVegetarian"
+            value = {this.state.isVegetarian}
+            onChange = {this.handleChange}
             checked = {this.state.isVegetarian}
-            onChange={this.handleChange}
-          /> Vegetarian
-          <input
-            type="checkbox"
-            name="isKosher"
+          /> Vegan?
+
+          <input 
+            type = "checkbox"
+            name = "isKosher"
+            value = {this.state.isKosher}
+            onChange = {this.handleChange}
             checked = {this.state.isKosher}
-            onChange={this.handleChange}
-          />kosher
-          <input
-            type="checkbox"
-            name="isLactoseFree"
+          /> Kosher?
+
+          <input 
+            type = "checkbox"
+            name = "isLactoseFree"
+            value = {this.state.isLactoseFree}
+            onChange = {this.handleChange}
             checked = {this.state.isLactoseFree}
-            onChange={this.handleChange}
-          />Lactose free
+          /> Lactose Free?
 
           <br />
           <button>submit</button>
